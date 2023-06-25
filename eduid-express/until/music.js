@@ -1,12 +1,13 @@
 const pool = require('./bdconfig'); // 引入数据库连接池
-const mysql = require('mysql');
+const mysql = require('mysql2');
 let inst = "INSERT INTO music_type (id,name) values (?,?)"
 
 // 查询数据
 function selectData(callback) {
     pool.query('SELECT * FROM music_type', (error, results) => {
         if (error) {
-            throw error;
+            console.log(error);
+            return;
         }
         callback(results);
     });

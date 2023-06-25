@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="bar" :style="{ height: statusBarHeight + 'px' }"></view>
+		<view class="bar" :style="{ marginBottom: statusBarHeight + 'px',height:statusBarHeight + 'px' }"></view>
 	</view>
 </template>
 
@@ -25,6 +25,6 @@
 <style scoped>
 .bar{
 	width: 100%;
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0);
 }
 </style>

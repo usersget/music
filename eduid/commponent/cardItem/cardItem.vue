@@ -1,7 +1,7 @@
 <template>
 	<view class="itemcard">
-		<view class="card-title">
-			<view class="lefttitle" @click="ishadden()">
+		<view class="card-title" @click="ishadden()">
+			<view class="lefttitle" >
 				<text class="icon-xiajiantou iconfont"></text>
 				<text>{{list.name}}</text>
 			</view>

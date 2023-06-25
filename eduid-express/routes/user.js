@@ -13,12 +13,20 @@ router.get('/', (req, res) => {
             return;
         }else{
             if (results.length>0){
-                res.json({
-                    code:200,
-                    msg:results[0].username+"欢迎回来",
-                    img:results[0].userimg,
-                    title: results[0].username
-                });
+                if (results[0].password == password){
+                    res.json({
+                        code: 200,
+                        msg: results[0].username + "欢迎回来",
+                        img: results[0].userimg,
+                        title: results[0].username
+                    });
+                }else{
+                    res.json({
+                        code: 201,
+                        msg: "用户名或密码错误"
+                    });
+                }
+                
             }else{
                 res.json({
                     code:500,

@@ -14,10 +14,10 @@
 			</u-navbar>
 			
 			<!-- 用户头像名字 -->
-			<view class="avatar-box flex-layout flex-center">
-				<u-avatar :src="src" mode="square" size="90" ></u-avatar>
+			<view class="avatar-box flex-layout flex-center" @click="onClickMenu()">
+				<u-avatar :src="user.src" mode="square" size="90" ></u-avatar>
 				<view class="user-name-box">
-					<view class="user-name">世染尘光</view>
+					<view class="user-name">{{user.name=="root"||user.name=="admin"?"管理员":user.name}}</view>
 					<u-tag text="Lv.8" size="mini" bg-color="#a9aba6" 
 						color="#fff" border-color="transparent" shape="circle"/>
 				</view>
@@ -166,9 +166,9 @@
 					<u-navbar :custom-back="displypopup" title="">
 					</u-navbar>
 					<!-- 用户头像 -->
-					<view class="avatar-box flex-layout flex-center">
-						<u-avatar :src="src" mode="square" size="50" ></u-avatar>
-						<div class="user-name">zsq</div>
+					<view class="avatar-box flex-layout flex-center" @click="userlog()">
+						<u-avatar :src="user.src" mode="square" size="50" ></u-avatar>
+						<div class="user-name">{{user.name=="root"||user.name=="admin"?"管理员":user.name}}</div>
 						<u-button size="mini" shape="circle">签到 ></u-button>
 					</view>
 					
@@ -239,6 +239,10 @@
 		data() {
 			return {
 				navBgColor: 'rgba(150,150,140, 10)',
+				user:{
+					name:"",
+					src:""
+				},
 				popupshow:false,
 				topGridData: [
 					{text: '本地音乐', icon:'play-circle',},
@@ -256,20 +260,27 @@
 					{text: '切换至单列模式', },
 				],
 				show: false,
-				src: '',
 				userGridData: [
 					{ text:'我的消息',icon: 'email', useBadge: true, count: 99 },
 					{ text:'我的好友',icon: 'account',   },
 					{ text:'个人主页',icon: 'home',   },
 					{ text:'个性装扮',icon: 'shopping-cart', },
-				],
-			src:"https://img0.baidu.com/it/u=489552572,2707768722&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1687626000&t=491244724da7fd2626ce4a5f2e2a18d6"
+				]
 			}
 		},
 		methods: {
 			onClickMenu(){
-				console.log('aa');
 				this.popupshow=true
+			},
+			userlog(){
+				if(this.user.name=="游客"){
+					this.backlogin()
+				}else{
+				this.$refs.uToast.show({
+					title: '系统正在升级，更多精彩敬请期待',
+					type: 'success',
+				})
+				}
 			},
 			navblist(){
 				this.$refs.uToast.show({
@@ -286,13 +297,23 @@
 				this.popupshow=false
 			},
 			ActionSheet(index){
-				console.log(index);
 				this.$refs.uToast.show({
 					title: '系统正在升级，请稍后再试',
 					type: 'success',
 				})
 			}
 		},
+		onHide() {
+			this.popupshow=false
+			this.show=false
+			this.onShowCreate=false
+		},
+		onLoad() {
+			this.user.name=this.$store.state.user.name
+			this.user.src=this.$store.state.user.url
+			// console.log(this.user);
+			// console.log(this.$store.state.user);
+		}
 	}
 </script>
 
@@ -320,6 +341,8 @@
 		font-size: 35rpx;
 		font-weight: bolder;
 		margin-bottom: 8rpx;
+		margin-left: 8rpx;
+		color: red;
 	}
 	
 	/**

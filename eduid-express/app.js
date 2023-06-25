@@ -18,7 +18,7 @@ app.use(cros({
   origin: '*'
 }))
 //去除304 http缓存状态码
-// app.disable('etag');
+app.disable('etag');
 app.use(bodyParser());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,13 +30,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.all('*', function(req, res, next) {
-//     res.setHeader('Access-Control-Allow-Origin','*');
-// 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');  
-//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');  
-//     res.setHeader("Content-Type", "application/json;charset=utf-8"); 
-//     next();
-// });
+app.all('*', function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin','*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');  
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');  
+    res.setHeader("Content-Type", "application/json;charset=utf-8"); 
+    next();
+});
 
 
 app.use('/', indexRouter);

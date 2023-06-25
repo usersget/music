@@ -24,14 +24,12 @@
 		overflow: auto;
 	}
 	view::before,view::after,view{
-		background-color: rgba(123, 123, 123, 0.05);
-		/* opacity: 0.8; */
-		 color: #000; 
+		background-color: rgba(123, 123, 123, 0);
 	}
 	span,span::before,
 	text::before,text,
 	text::after,uni-text>span{
-		background-color: rgba(255, 255, 255, 0) !important;
+		background-color: rgba(123, 123, 123, 0);
 	}
 </style>
 <style lang="scss">

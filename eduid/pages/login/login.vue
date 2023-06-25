@@ -28,16 +28,20 @@ export default {
 			user.username=this.username
 			user.password=this.password
 			this.$sqlhttpurl.setheader(user)
+			// console.log(user,"user")
 			  this.$sqlhttpurl.request('/user','GET').then(res=>{
+				  // console.log(res,"res")
+				  this.$store.commit('USERNAME',{name:res.title,url:res.img})
 				 this.$refs.uToast.show({
 				 	title: res.msg,
 				 	type: res.code==200?'success':'warning',
 				 })
-				 if(res.code==200){
-					 uni.switchTab({
-							url: '../index/index'
-					 })
-				 }
+				 
+				if(res.code==200){
+					uni.switchTab({
+						url: '../index/index'
+					})
+				}
 			 })	
 		}else{
 		this.$refs.uToast.show({
@@ -51,7 +55,7 @@ export default {
         url: '../register/register'
       })
     }
-  }
+  },
 }
 </script>
 

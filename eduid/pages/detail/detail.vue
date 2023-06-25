@@ -73,12 +73,12 @@
 				songComment : [],
 				songLyric : [],
 				lyricIndex : 0,
-				playicon : 'iconpause',
-				isplayrotate : true
+				playicon : 'iconbofang1',
+				isplayrotate : false,
+				audioSrc:'',
 			}
 		},
 		onLoad(options){
-			// console.log(options.songId)
 			this.playMusic(options.songId);
 		},
 		onUnload(){
@@ -95,28 +95,29 @@
 		},
 		methods: {
 			playMusic(songId){
+				// #ifdef MP-WEIXIN
+				this.bgAudioMannager = uni.getBackgroundAudioManager();
+				this.bgAudioMannager.title = this.songDetail.name;
+				// #endif
+				
+				// #ifdef H5
+				if(!this.bgAudioMannager){
+					this.bgAudioMannager = uni.createInnerAudioContext();
+				}
+				// #endif
 				this.$store.commit('NEXT_ID',songId);
 				Promise.all([songDetail(songId),songSimi(songId),songComment(songId),songLyric(songId),songUrl(songId)]).then((res)=>{
-					// this.$refs.uToast.show({
-					// 	title: res,
-					// 	type: 'error',
-					// })
 					if(res[0].data.code == '200'){
 						this.songDetail = res[0].data.songs[0];
-						console.log(res[0].data)
-						
 					}
 					if( res[1].data.code == '200' ){
 						this.songSimi = res[1].data.songs;
-						console.log(res[1].data.songs)
-						
 					}
 					if( res[2].data.code == '200' ){
 						this.songComment = res[2].data.hotComments;
-						console.log(res[2])
+						// console.log(this.songComment)
 					}
 					if(res[3].data.code == '200'){
-						console.log(res[3])
 						let lyric = res[3].data.lrc.lyric;
 						let result = [];
 						let re = /\[([^\]]+)\]([^[]+)/g;
@@ -126,43 +127,30 @@
 						this.songLyric = result;
 					}
 					if(res[4].data.code == '200'){
-						console.log(res[4],"song")
 						if(res[4].data.data[0].url==null ||res[4].data.data[0].url==''){
 							this.$refs.uToast.show({
 								title: '网络错误请稍后再试',
 								type: 'error',
 							})
-						}
-						// #ifdef APP
-						this.bgAudioMannager = uni.getBackgroundAudioManager();
-						this.bgAudioMannager.title = this.songDetail.name;
-						// #endif
-						// #ifdef MP-WEIXIN
-						this.bgAudioMannager = uni.getBackgroundAudioManager();
-						this.bgAudioMannager.title = this.songDetail.name;
-						// #endif
-						// #ifdef H5
-						if(!this.bgAudioMannager){
-							this.bgAudioMannager = uni.createInnerAudioContext();
-						}
-						this.playicon = 'iconbofang1';
-						this.isplayrotate = false;
-						// #endif
-						this.bgAudioMannager.src = res[4].data.data[0].url;
-						this.listenLyricIndex();
-						this.bgAudioMannager.onPlay(()=>{
-							this.playicon = 'iconpause';
-							this.isplayrotate = true;
+						}else{
+							this.audioSrc=res[4].data.data[0].url
+							this.bgAudioMannager.src = res[4].data.data[0].url;
 							this.listenLyricIndex();
-						});
-						this.bgAudioMannager.onPause(()=>{
-							this.playicon = 'iconbofang1';
-							this.isplayrotate = false;
-							this.cancelLyricIndex();
-						});
-						this.bgAudioMannager.onEnded(()=>{
-							this.playMusic(this.$store.state.nextId);
-						});
+							this.bgAudioMannager.onPlay(()=>{
+								this.playicon = 'iconpause';
+								this.isplayrotate = true;
+								this.listenLyricIndex();
+							});
+							this.bgAudioMannager.onPause(()=>{
+								this.playicon = 'iconbofang1';
+								this.isplayrotate = false;
+								this.cancelLyricIndex();
+							});
+							this.bgAudioMannager.onEnded(()=>{
+								this.playMusic(this.$store.state.nextId);
+							});
+						}
+
 					}
 				});
 			},
@@ -171,11 +159,23 @@
 				return (parseFloat(arr[0]) * 60 + parseFloat(arr[1])).toFixed(2);
 			},
 			handleToPlay(){
-				if(this.bgAudioMannager.paused){
+				if(!this.bgAudioMannager){
+					this.bgAudioMannager = uni.createInnerAudioContext();
+					this.bgAudioMannager.src=this.audioSrc
+				}
+				if(!this.isplayrotate){
 					this.bgAudioMannager.play();
+					// console.log("1");
+					this.playicon = 'iconpause';
+					this.isplayrotate = !this.isplayrotate;
+					 // this.listenLyricIndex();
 				}
 				else{
 					this.bgAudioMannager.pause();
+					// console.log("2");
+					this.playicon = 'iconbofang1';
+					this.isplayrotate = !this.isplayrotate;
+				// this.cancelLyricIndex();
 				}
 			},
 			listenLyricIndex(){

@@ -2,8 +2,8 @@
 	<view class="content">
 		<myheader></myheader>
 		<!-- header -->
-		<view class="headhome">
-			<uni-search-bar class="uni-mt-10" radius="100" placeholder="音乐/歌手" clearButton="auto" cancelButton="none" @confirm="search" />
+		<view class="headhome" @click="tosearch()">
+			<uni-search-bar class="uni-mt-10" readonly radius="100" placeholder="音乐/歌手" clearButton="auto" cancelButton="none" />
 		</view>
 		<!-- 轮播图 -->
 		<view class="uni-margin-wrap">
@@ -22,12 +22,12 @@
 		<!-- navbar -->	
 		<view class="navbar-list">
 			<view class="box-ul">
-				<view class="box-li" v-for="(item,index) in 5" :key="index" @click="navbar(index)">
+				<view class="box-li" v-for="item in navlist" :key="item.id" @click="navbar(item.name)">
 					<view>
-						<text class="icon-yinle iconfont iconfile"></text>
+						<text class="iconfont iconfile" :class="item.icon"></text>
 					</view>
 					<view>
-						<text>乐库</text>
+						<text>{{item.name}}</text>
 					</view>
 					
 				</view>
@@ -72,16 +72,48 @@
 					duration: 500,
 					bannerList:[],
 					titlelist:[],
-					show:false
+					show:false,
+					navlist:[
+						{
+							id:0,
+							name:"乐库",
+							icon:"icon-yinle"
+						},
+						{
+							id:1,
+							name:"猜你喜欢",
+							icon:"icon-cainixihuan"
+						},
+						{
+							id:2,
+							name:"排行榜",
+							icon:"icon-paihangbang2"
+						},
+						{
+							id:3,
+							name:"电台",
+							icon:"icon-shouyinji"
+						},
+						{
+							id:4,
+							name:"会员中心",
+							icon:"icon-huiyuan1"
+						},
+					]
 			}
 		},
 		onLoad() {
 			this.show=true
-		 this.getbanner()
-		 this.gettitle()	
+			this.getbanner()
+			this.gettitle()	
 		},
 		
 		methods: {
+			tosearch(){
+				uni.navigateTo({
+					url: '../search/search'
+				});
+			},
 			//获取banner
 			 getbanner(){
 				  this.$sqlhttpurl.request('/user/banner').then(res=>{
@@ -89,18 +121,13 @@
 				 })
 				},
 			//获取标题
-			 gettitle(){
-				 this.$sqlhttpurl.request('/music').then(res=>{
+			gettitle(){
+				this.$sqlhttpurl.request('/music').then(res=>{
 					this.titlelist=res.msg
 					this.show=false
 				})
+				
 				},
-			search(res) {
-				uni.showToast({
-					title: '搜索：' + res.value,
-					icon: 'none'
-				})
-			},
 			navbar(index){
 				console.log(index);
 				this.$refs.uToast.show({
@@ -110,8 +137,7 @@
 			}
 			
 			
-		},
-			
+		},		
 	}
 </script>
 

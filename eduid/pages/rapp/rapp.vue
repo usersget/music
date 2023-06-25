@@ -20,7 +20,7 @@
 				this.show = true;
 			},
 			backhome(){
-				uni.switchTab({
+				uni.reLaunch({
 						url: '../index/index'
 				})
 			}
