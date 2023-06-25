@@ -7,6 +7,17 @@
 ```
 
 ### 2.启动运行
+
+#### 2.1 win
+
 ```javascript
-	npm run start
+node app.js
 ```
+
+#### 2.2Liunx
+
+```shell
+# 需要安装node环境并且安装PM2管理工具
+pm2 start app.js
+```
+
