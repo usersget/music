@@ -4,8 +4,9 @@
 uniapp -- edu
 
 #### 软件架构
-软件架构说明
 
+- 后台：express+mysql +mongodb
+- 前端：uniapp+vuex + uview
 
 #### 安装教程
 
