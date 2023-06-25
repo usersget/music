@@ -72,7 +72,7 @@ router.post('/', (req, res) => {
             res.json({
                 code:500,
                 msg:false,
-                title:"注册失败请检查您的信息"
+                title:"注册失败，用户名已使用"
             })
             console.log(err)
             return;
