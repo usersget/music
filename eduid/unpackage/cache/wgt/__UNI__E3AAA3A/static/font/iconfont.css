@@ -1,0 +1,161 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4128732 */
+  src: url('/static/font/iconfont.woff2?t=1687425562954') format('woff2'),
+       url('/static/font/iconfont.woff?t=1687425562954') format('woff'),
+	   url('/static/woff/ali.woff2?t=1687425562954') format('woff2'),
+	   url('/static/woff/ali.woff') format('woff'),
+       url('/static/font/iconfont.ttf?t=1687425562954') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-zanting1:before {
+  content: "\e635";
+}
+
+.icon-bofang1:before {
+  content: "\ead8";
+}
+
+.icon-zanting2:before {
+  content: "\e668";
+}
+
+.icon-24gf-playCircle:before {
+  content: "\ea82";
+}
+
+.icon-youjiantou1:before {
+  content: "\e628";
+}
+
+.icon-arrow_right_fat:before {
+  content: "\e62c";
+}
+
+.icon-shouyinji:before {
+  content: "\e600";
+}
+
+.icon-shipintianchong:before {
+  content: "\e690";
+}
+
+.icon-gengduomore12:before {
+  content: "\e60a";
+}
+
+.icon-huiyuan:before {
+  content: "\e65f";
+}
+
+.icon-huiyuan1:before {
+  content: "\e609";
+}
+
+.icon-sousuo:before {
+  content: "\eafe";
+}
+
+.icon-yinleku:before {
+  content: "\e60b";
+}
+
+.icon-nv:before {
+  content: "\e8b4";
+}
+
+.icon-nan:before {
+  content: "\e6c4";
+}
+
+.icon-gengduo1:before {
+  content: "\e60d";
+}
+
+.icon-gengduo2:before {
+  content: "\e607";
+}
+
+.icon-cainixihuan:before {
+  content: "\e696";
+}
+
+.icon-tuijian:before {
+  content: "\e647";
+}
+
+.icon-tianjia:before {
+  content: "\e622";
+}
+
+.icon-gengduo:before {
+  content: "\e611";
+}
+
+.icon-tuijian1:before {
+  content: "\e67d";
+}
+
+.icon-bofang:before {
+  content: "\e624";
+}
+
+.icon-vynil:before {
+  content: "\e61f";
+}
+
+.icon-paihangbang:before {
+  content: "\e6f1";
+}
+
+.icon-yinle:before {
+  content: "\e66e";
+}
+
+.icon-paihangbang1:before {
+  content: "\e8b3";
+}
+
+.icon-zanting:before {
+  content: "\e604";
+}
+
+.icon-xiajiantou:before {
+  content: "\e60c";
+}
+
+.icon-paihangbang2:before {
+  content: "\ed68";
+}
+
+.icon-shangyiqu:before {
+  content: "\e860";
+}
+
+.icon-xiayiqu:before {
+  content: "\e865";
+}
+
+.icon-fangzi:before {
+  content: "\e60f";
+}
+
+.icon-os-icon-category:before {
+  content: "\e610";
+}
+
+.icon-os-icon-user:before {
+  content: "\e618";
+}
+
+.icon-a-Screencapture:before {
+  content: "\e61a";
+}
+
