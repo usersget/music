@@ -283,6 +283,8 @@
 							title: res.msg,
 							type: res.code==200?'success':'error',
 						})
+						this.$store.commit('USERNAME',{name:"游客",
+						url:"https://img0.baidu.com/it/u=489552572,2707768722&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1687626000&t=491244724da7fd2626ce4a5f2e2a18d6"})
 						uni.redirectTo({
 							url: '../register/register',
 						});
@@ -310,6 +312,7 @@
 				})
 			},
 			backlogin(){
+				this.$store.commit('USERNAME',{name:"游客",url:"https://img0.baidu.com/it/u=489552572,2707768722&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1687626000&t=491244724da7fd2626ce4a5f2e2a18d6"})
 				uni.redirectTo({
 					url: '../login/login',
 				});
