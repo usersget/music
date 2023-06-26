@@ -216,9 +216,10 @@
 					<view class="bottom-box">
 						<u-grid :col="3" >
 							<u-grid-item >
-								<view class="flex-layout flex-center">
+								<view class="flex-layout flex-center" @click="deleteUser()">
 									<u-icon name="hourglass"  size="28"></u-icon>
-									夜间模式
+									<!-- 夜间模式 -->
+									注销用户
 								</view>
 							</u-grid-item>
 							<u-grid-item >
@@ -269,6 +270,23 @@
 			}
 		},
 		methods: {
+			deleteUser(){
+				if(this.user.name=="游客"){
+					this.$refs.uToast.show({
+						title: '当前未登录，请先登录',
+						type: 'error',
+					})
+				}else{
+					this.$sqlhttpurl.request('/user/'+this.user.name,'DELETE').then(res=>{
+						if(res.code==200){
+						this.$refs.uToast.show({
+							title: res.msg,
+							type: res.code==200?'success':'error',
+						})	
+						}
+					})	
+				}
+			},
 			onClickMenu(){
 				this.popupshow=true
 			},
@@ -311,8 +329,6 @@
 		onLoad() {
 			this.user.name=this.$store.state.user.name
 			this.user.src=this.$store.state.user.url
-			// console.log(this.user);
-			// console.log(this.$store.state.user);
 		}
 	}
 </script>

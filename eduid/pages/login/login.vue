@@ -8,6 +8,7 @@
 		  <button @click="login">登录</button>
 		  <button class="register-btn" @click="goToRegister">注册</button>
 	  </div>
+	  <button class="register-btn" @click="lout()">游客模式</button>
     </view>
 	<u-toast ref="uToast" />
   </view>
@@ -22,6 +23,11 @@ export default {
     }
   },
   methods: {
+	  lout(){
+		  uni.switchTab({
+		  	url: '../index/index'
+		  })
+	  },
     login(){
 		if(this.username&&this.password){
 			let user={}
@@ -60,6 +66,9 @@ export default {
 </script>
 
 <style>
+	.sub{
+		display: flex;
+	}
 .container {
   display: flex;
   flex-direction: column;
@@ -92,11 +101,11 @@ input {
 button {
   width: 120px;
   height: 40px;
-  margin-bottom: 10px;
   background-color: #007aff;
   color: #fff;
   border: none;
   border-radius: 4px;
+  margin: 10px;
 }
 
 .register-btn {

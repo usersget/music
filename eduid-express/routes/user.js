@@ -104,18 +104,32 @@ router.post('/', (req, res) => {
 // });
 
 // 删除数据
-// router.delete('/:id', (req, res) => {
-//     const id = req.params.id;
-//     const sql = 'DELETE FROM table_name WHERE id = ?';
-//     const params = [id];
-
-//     db.query(sql, params, (err, results) => {
-//         if (err) {
-//             res.status(500).send('Error deleting data from database');
-//             return;
-//         }
-//         res.json(results);
-//     });
-// });
+router.delete('/:name', (req, res) => {
+    console.log(req.params.name);
+    const sql = 'DELETE FROM users WHERE username = ?';
+    const name = req.params.name;
+    const params = [name];
+    db.query(sql, params, (err, results) => {
+        if (err) {
+            res.json({
+                code:500,
+                msg:'Error deleting data from database'
+            })
+            return;
+        }
+        if (results.affectedRows===1){
+            res.json({
+                code:200,
+                msg:"注销成功"
+            });
+        }else{
+            res.json({
+                code: 400,
+                msg: "网络不稳，请稍后再试",
+                json: results
+            });
+        }
+    });
+});
 
 module.exports = router;
