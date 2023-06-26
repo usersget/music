@@ -282,7 +282,10 @@
 						this.$refs.uToast.show({
 							title: res.msg,
 							type: res.code==200?'success':'error',
-						})	
+						})
+						uni.redirectTo({
+							url: '../register/register',
+						});
 						}
 					})	
 				}
